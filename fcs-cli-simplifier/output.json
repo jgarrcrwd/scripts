@@ -1,0 +1,84 @@
+{
+  "scan_summary": {
+    "scan_date": "2025-12-17T14:36:07.280944-08:00",
+    "project_name": "Local scan of ./insecure.tf",
+    "issues": {
+      "total": 5,
+      "by_severity": [
+        {
+          "severity": "Critical",
+          "count": 2
+        },
+        {
+          "severity": "High",
+          "count": 1
+        },
+        {
+          "severity": "Medium",
+          "count": 2
+        }
+      ]
+    }
+  },
+  "issues": [
+    {
+      "severity": "Critical",
+      "rule_name": "Cloud Storage Anonymous or Publicly Accessible",
+      "description": "Cloud Storage Buckets must not be anonymously or publicly accessible, which means the attribute 'entity' must not be 'allUsers' or 'allAuthenticatedUsers'",
+      "file": "./insecure.tf",
+      "line": 31,
+      "resource_type": "google_storage_bucket_iam_binding",
+      "resource_name": "public_list",
+      "issue": "'google_storage_bucket_iam_binding[public_list].members' has 'allUsers'",
+      "fix": "'google_storage_bucket_iam_binding[public_list].members' should not have 'allUsers'"
+    },
+    {
+      "severity": "Critical",
+      "rule_name": "Cloud Storage Anonymous or Publicly Accessible",
+      "description": "Cloud Storage Buckets must not be anonymously or publicly accessible, which means the attribute 'entity' must not be 'allUsers' or 'allAuthenticatedUsers'",
+      "file": "./insecure.tf",
+      "line": 22,
+      "resource_type": "google_storage_bucket_iam_binding",
+      "resource_name": "public_read",
+      "issue": "'google_storage_bucket_iam_binding[public_read].members' has 'allUsers'",
+      "fix": "'google_storage_bucket_iam_binding[public_read].members' should not have 'allUsers'"
+    },
+    {
+      "severity": "High",
+      "rule_name": "Google Storage Bucket Level Access Disabled",
+      "description": "Google Storage Bucket Level Access should be enabled",
+      "file": "./insecure.tf",
+      "line": 15,
+      "resource_type": "google_storage_bucket",
+      "resource_name": "insecure-public-bucket-example",
+      "issue": "google_storage_bucket[insecure_bucket].uniform_bucket_level_access is false",
+      "fix": "google_storage_bucket[insecure_bucket].uniform_bucket_level_access should be true",
+      "remediation": "{\"after\":\"true\",\"before\":\"false\"}",
+      "remediation_type": "replacement"
+    },
+    {
+      "severity": "Medium",
+      "rule_name": "Cloud Storage Bucket Logging Not Enabled",
+      "description": "Cloud storage bucket should have logging enabled",
+      "file": "./insecure.tf",
+      "line": 9,
+      "resource_type": "google_storage_bucket",
+      "resource_name": "insecure-public-bucket-example",
+      "issue": "'google_storage_bucket.logging' is undefined",
+      "fix": "'google_storage_bucket.logging' should be set"
+    },
+    {
+      "severity": "Medium",
+      "rule_name": "Cloud Storage Bucket Versioning Disabled",
+      "description": "Cloud Storage Bucket should have versioning enabled",
+      "file": "./insecure.tf",
+      "line": 9,
+      "resource_type": "google_storage_bucket",
+      "resource_name": "insecure-public-bucket-example",
+      "issue": "'versioning' it undefined or null",
+      "fix": "'versioning' should be defined and not null",
+      "remediation": "versioning {\n\t\tenabled = true\n\t}\n",
+      "remediation_type": "addition"
+    }
+  ]
+}
