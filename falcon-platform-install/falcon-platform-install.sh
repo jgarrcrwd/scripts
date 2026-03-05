@@ -64,7 +64,7 @@ helm repo update
 # Step 9: Install Falcon Platform
 echo ""
 echo "Installing Falcon Platform..."
-helm install falcon-platform crowdstrike/falcon-platform --version 1.0.0 \
+helm install falcon-platform crowdstrike/falcon-platform --version 1.2.0 \
   --namespace falcon-platform \
   --create-namespace \
   --set createComponentNamespaces=true \
